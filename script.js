@@ -16,14 +16,11 @@ async function buscaEndereco(cep){
     }
 }
 
-
-
 const eCep = document.getElementById('cep');
-eCep.onkeydown = (tecla) => {
-    if (tecla.code == 'Tab' || tecla.code == 'Enter'|| tecla.code == 'Space'){
-        buscaEndereco(eCep.value);
-    }
-}
+
+eCep.addEventListener("focusout", ()=>{
+    buscaEndereco(eCep.value);
+})
 
 const eEndereco = document.getElementById('endereco');
 const eBairro = document.getElementById('bairro');
