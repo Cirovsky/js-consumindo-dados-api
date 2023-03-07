@@ -1,26 +1,22 @@
 async function buscaEndereco(cep){
+    const eErro = document.getElementById('erro');
     try{
         const consultaCEP = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
         const consultaCEPConvertida = await consultaCEP.json();
         if (consultaCEPConvertida.erro){
-            alert("esse cep não existe");
-            throw Error('Esse cep não existe');
+            throw Error('cep incorreto');
         }else{
-            console.log(consultaCEPConvertida)
             preencheEndereco(consultaCEPConvertida);
         }
     }catch(erro){
-        console.log(erro);
-        alert("CEP preenchido de forma errada!");
+        eErro.innerHTML = `<p> CEP inválido. tente novamente</p>`;
         limpaFormulario();
     }
 }
 
 const eCep = document.getElementById('cep');
 
-eCep.addEventListener("focusout", ()=>{
-    buscaEndereco(eCep.value);
-})
+eCep.addEventListener("focusout", ()=> buscaEndereco(eCep.value));
 
 const eEndereco = document.getElementById('endereco');
 const eBairro = document.getElementById('bairro');
